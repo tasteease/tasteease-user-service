@@ -31,4 +31,8 @@
         <ProjectReference Include="..\Fiap.TasteEase.Domain\Fiap.TasteEase.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Mappers\" />
+    </ItemGroup>
+
 </Project>

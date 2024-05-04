@@ -23,6 +23,4 @@ public class ClientModel : EntityModel
 
     [Column("updated_at", TypeName = "timestamp without time zone")]
     public DateTime UpdatedAt { get; set; }
-
-    public virtual ICollection<OrderModel>? Order { get; set; } = null!;
 }

@@ -1,6 +1,4 @@
-﻿using Fiap.TasteEase.Domain.Aggregates.FoodAggregate.ValueObjects;
-using Fiap.TasteEase.Domain.Aggregates.OrderAggregate.ValueObjects;
-using Fiap.TasteEase.Domain.Models;
+﻿using Fiap.TasteEase.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,38 +10,11 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<OrderModel> Orders { get; set; } = null!;
     public DbSet<ClientModel> Clients { get; set; } = null!;
-    public DbSet<FoodModel> Foods { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-
-        modelBuilder
-            .Entity<OrderModel>()
-            .Property(e => e.Status)
-            .HasConversion(new EnumToStringConverter<OrderStatus>());
-
-        modelBuilder
-            .Entity<FoodModel>()
-            .Property(e => e.Type)
-            .HasConversion(new EnumToStringConverter<FoodType>());
-
-        modelBuilder
-            .Entity<FoodModel>()
-            .Property(e => e.Price)
-            .HasPrecision(18, 2);
-
-        modelBuilder
-            .Entity<OrderPaymentModel>()
-            .Property(e => e.Amount)
-            .HasPrecision(18, 2);
-
-        modelBuilder
-            .Entity<OrderPaymentModel>()
-            .HasIndex(e => e.Reference)
-            .IsUnique();
 
         base.OnModelCreating(modelBuilder);
     }

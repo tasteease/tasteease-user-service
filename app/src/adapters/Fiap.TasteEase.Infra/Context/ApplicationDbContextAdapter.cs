@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Fiap.TasteEase.Infra.Context;
 
-internal class ApplicationDbContextAdapter : IApplicationDbContext
+public class ApplicationDbContextAdapter : IApplicationDbContext
 {
     private readonly ApplicationDbContext _dbContext;
 
