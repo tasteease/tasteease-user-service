@@ -20,3 +20,5 @@ var app = builder.Build();
 app.UseRestApi();
 app.UseSeedData();
 app.Run();
+
+public partial class Program { }

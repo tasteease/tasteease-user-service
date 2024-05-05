@@ -30,4 +30,8 @@
         <ProjectReference Include="..\Fiap.TasteEase.Infra\Fiap.TasteEase.Infra.csproj" />
     </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="Fiap.TasteEase.Presentation.Tests" />
+	</ItemGroup>
+
 </Project>
