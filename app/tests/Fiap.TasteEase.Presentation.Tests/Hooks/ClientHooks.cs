@@ -1,11 +1,18 @@
 ﻿using BoDi;
+using Fiap.TasteEase.Application.Ports;
+using Fiap.TasteEase.Domain.Aggregates.ClientAggregate;
 using Fiap.TasteEase.Domain.DTOs;
-using Fiap.TasteEase.Infra.Context;
+using Fiap.TasteEase.Domain.Models;
+using Fiap.TasteEase.Domain.Ports;
 using Fiap.TasteEase.Presentation.Tests.Repositories;
+using FluentResults;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
+using System.Linq.Expressions;
 using TechTalk.SpecFlow;
 
 namespace Fiap.TasteEase.Presentation.Tests.Hooks
@@ -25,10 +32,19 @@ namespace Fiap.TasteEase.Presentation.Tests.Hooks
         public async Task RegisterServices()
         {
             var factory = GetWebApplicationFactory();
-            await ClearData(factory);
             _objectContainer.RegisterInstanceAs(factory);
             var jsonFilesRepo = new JsonFilesRepository();
             _objectContainer.RegisterInstanceAs(jsonFilesRepo);
+
+            var client = Client.Create(new CreateClientProps("test", "test"));
+            var list = new List<Client>();
+            list.Add(client.Value);
+            IEnumerable<Client> clients = list;
+            var clientRepositoryMock = new Mock<IClientRepository>();
+            clientRepositoryMock.Setup(repo => repo.Get(It.IsAny<Expression<Func<ClientModel, bool>>>(), It.IsAny<Expression<Func<ClientModel, EntityModel>>[]>()))
+                        .Returns(Task.FromResult(
+                             Result.Ok(clients)
+                            ));
         }
 
         private WebApplicationFactory<Program> GetWebApplicationFactory() =>
@@ -38,20 +54,26 @@ namespace Fiap.TasteEase.Presentation.Tests.Hooks
                     IConfigurationSection? configSection = null;
                     builder.ConfigureAppConfiguration((context, config) =>
                     {
+                        builder.UseEnvironment("Test");
+
                         config.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), AppSettingsFile));
                         configSection = context.Configuration.GetSection(nameof(AwsSettings));
                     });
                     builder.ConfigureTestServices(services =>
-                        services.Configure<AwsSettings>(configSection));
+                    {
+                        services.Configure<AwsSettings>(configSection);
+
+                        var list = new List<Client>();
+                        IEnumerable<Client> clients = list;
+                        var clientRepositoryMock = new Mock<IClientRepository>();
+                        clientRepositoryMock.Setup(repo => repo.Get(It.IsAny<Expression<Func<ClientModel, bool>>>(), It.IsAny<Expression<Func<ClientModel, EntityModel>>[]>()))
+                                    .Returns(Task.FromResult(
+                                         Result.Ok(clients)
+                                        ));
+
+                        services.AddSingleton(clientRepositoryMock.Object);
+                    }
+                    );
                 });
-
-        private async Task ClearData(WebApplicationFactory<Program> factory)
-        {
-            using var scope = factory.Services.CreateScope();
-            using var appContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-            appContext.RemoveRange(appContext.Clients);
-            await appContext.SaveChangesAsync();
-        }
     }
 }

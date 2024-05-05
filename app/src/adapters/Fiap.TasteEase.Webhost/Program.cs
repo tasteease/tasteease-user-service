@@ -18,7 +18,12 @@ builder.Services.AddRestApi(builder.Configuration);
 var app = builder.Build();
 
 app.UseRestApi();
-app.UseSeedData();
+
+if (builder.Environment.IsProduction())
+{
+    app.UseSeedData();
+}
+
 app.Run();
 
 public partial class Program { }
