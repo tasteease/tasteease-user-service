@@ -2,7 +2,6 @@ using Amazon.CognitoIdentityProvider;
 using Fiap.TasteEase.Application.Ports;
 using Fiap.TasteEase.Application.UseCases.ClientUseCase;
 using Fiap.TasteEase.Domain.Aggregates.ClientAggregate;
-using Fiap.TasteEase.Domain.Aggregates.Common;
 using Fiap.TasteEase.Domain.DTOs;
 using Fiap.TasteEase.Domain.Models;
 using Fiap.TasteEase.Domain.Ports;
@@ -11,7 +10,6 @@ using FluentResults;
 using Microsoft.Extensions.Options;
 using Moq;
 using System.Linq.Expressions;
-using System.Xml;
 
 namespace Fiap.TasteEase.Application.Tests
 {
