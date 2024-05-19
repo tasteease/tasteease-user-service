@@ -30,10 +30,15 @@ services:
     restart: unless-stopped
 
   testease:
-    image: tasteease/tasteease
-    container_name: tasteease
+    image: estrng/tasteease-user-service
+    container_name: tasteease-user-service
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Host=tasteease-postgresql;Port=5432;Database=taste-ease-user-service;Username=postgres;Password=postgres
+      AWS__Region: us-AWS__Region-1
+      AWS__UserPoolClientId: AWS__UserPoolClientId
+      AWS__UserPoolClientSecret: AWS__UserPoolClientSecret
+      AWS__UserPoolId: AWS__UserPoolId
     ports:
       - 5212:80
     depends_on:
