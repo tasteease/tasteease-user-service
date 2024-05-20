@@ -34,7 +34,7 @@ Os repositórios estão com a branch main (principal) travadas para alterações
 
 ### Cobertura de Testes do Core
 
-![Cobertura de testes](/miscs/test-coverage-image.jpg)
+![Cobertura de testes](/miscs/fase-3/test-coverage-image.jpg)
 
 Authored by:
 
