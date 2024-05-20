@@ -1,10 +1,7 @@
 using Fiap.TasteEase.Api.ViewModels;
-using Fiap.TasteEase.Application.Ports;
 using Fiap.TasteEase.Domain.Aggregates.ClientAggregate;
-using Fiap.TasteEase.Presentation.Tests.Repositories;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
-using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using TechTalk.SpecFlow;
@@ -19,15 +16,12 @@ namespace Fiap.TasteEase.Presentation.Tests.Steps
         public WebApplicationFactory<Program> Factory { get; }
         public HttpClient Client { get; set; } = null!;
         private HttpResponseMessage Response { get; set; } = null!;
-        public JsonFilesRepository JsonFilesRepo { get; }
         private Client? Entity { get; set; }
 
         public ClientControllerStepDefinitions(
-            WebApplicationFactory<Program> factory, 
-            JsonFilesRepository jsonFilesRepo)
+            WebApplicationFactory<Program> factory)
         {
             Factory = factory;
-            JsonFilesRepo = jsonFilesRepo;
         }
 
         private JsonSerializerOptions JsonSerializerOptions { get; } = new JsonSerializerOptions
@@ -42,12 +36,20 @@ namespace Fiap.TasteEase.Presentation.Tests.Steps
             Client = Factory.CreateDefaultClient(new Uri(BaseAddress));
         }
 
-        [When(@"the POST request is sent to create a client with '(.*)' to '(.*)'")]
-        public async Task WhenThePOSTRequestIsSentToCreateAClient(string file, string endpoint)
+        [When(@"the POST request is sent to create a client to '(.*)'")]
+        public async Task WhenThePOSTRequestIsSentToCreateAClient(string endpoint)
         {
-            var json = JsonFilesRepo.Files[file];
-            var content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json);
-            Response = await Client.PostAsync(endpoint, content);
+            var userData = new 
+            {
+                Name = "Maria Santos",
+                TaxpayerNumber = "70621098000"
+            };
+
+            var jsonContent = JsonSerializer.Serialize(userData);
+
+            var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            Response = await Client.PostAsync(endpoint, stringContent);
         }
 
         [Then(@"a (.*) Created response is returned")]

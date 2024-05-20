@@ -4,7 +4,6 @@ using Fiap.TasteEase.Domain.Aggregates.ClientAggregate;
 using Fiap.TasteEase.Domain.DTOs;
 using Fiap.TasteEase.Domain.Models;
 using Fiap.TasteEase.Domain.Ports;
-using Fiap.TasteEase.Presentation.Tests.Repositories;
 using FluentResults;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -33,8 +32,6 @@ namespace Fiap.TasteEase.Presentation.Tests.Hooks
         {
             var factory = GetWebApplicationFactory();
             _objectContainer.RegisterInstanceAs(factory);
-            var jsonFilesRepo = new JsonFilesRepository();
-            _objectContainer.RegisterInstanceAs(jsonFilesRepo);
 
             var client = Client.Create(new CreateClientProps("test", "test"));
             var list = new List<Client>();

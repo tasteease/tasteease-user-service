@@ -103,7 +103,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.Given("a valid create client request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 9
-    testRunner.When("the POST request is sent to create a client with \'Client.json\' to \'client\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("the POST request is sent to create a client to \'client\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
     testRunner.Then("a 201 Created response is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

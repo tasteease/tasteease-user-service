@@ -6,6 +6,6 @@
 
 Scenario: Create client successfully
     Given a valid create client request
-    When the POST request is sent to create a client with 'Client.json' to 'client'
+    When the POST request is sent to create a client to 'client'
     Then a 201 Created response is returned
     And the response contains the client ID
