@@ -4,9 +4,9 @@
 
 ## Repositórios dos serviços
 
-- [Repositório core]([https://github.com/tasteease/tasteease-core](https://github.com/tasteease/tasteease-core))
-- [Repositório user-service]([https://github.com/tasteease/tasteease-user-service](https://github.com/tasteease/tasteease-user-service))
-- [Repositório payment-service]([https://github.com/tasteease/tasteease-payment-service](https://github.com/tasteease/tasteease-payment-service))
+- [Repositório core](https://github.com/tasteease/tasteease-core)
+- [Repositório user-service](https://github.com/tasteease/tasteease-user-service)
+- [Repositório payment-service](https://github.com/tasteease/tasteease-payment-service)
 
 ## Repositórios da infraestrutura
 
