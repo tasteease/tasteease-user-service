@@ -14,6 +14,7 @@
 - [Repositório cognito com lambda (auth identity)](https://github.com/tasteease/tasteease-tf-cognito)
 - [Repositório ecs (cluster)](https://github.com/tasteease/tasteease-tf-ecs)
 
+
 Authored by:
 
 RM352294 - [Carlos Roberto Nascimento Junior](https://github.com/carona-jr)
