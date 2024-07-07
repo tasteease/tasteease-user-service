@@ -18,6 +18,13 @@ public class ClientModel : EntityModel
     [MaxLength(256)]
     public string? TaxpayerNumber { get; set; }
 
+    [Column("full_address")]
+    [MaxLength(512)]
+    public string? FullAddress { get; set; }
+
+    [Column("cellphone_number")]
+    public long? CellPhoneNumber { get; set; }
+
     [Column("created_at", TypeName = "timestamp without time zone")]
     public DateTime CreatedAt { get; set; }
 

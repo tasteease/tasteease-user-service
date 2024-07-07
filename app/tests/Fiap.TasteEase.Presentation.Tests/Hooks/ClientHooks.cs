@@ -33,7 +33,7 @@ namespace Fiap.TasteEase.Presentation.Tests.Hooks
             var factory = GetWebApplicationFactory();
             _objectContainer.RegisterInstanceAs(factory);
 
-            var client = Client.Create(new CreateClientProps("test", "test"));
+            var client = Client.Create(new CreateClientProps("test", "test", "test", null));
             var list = new List<Client>();
             list.Add(client.Value);
             IEnumerable<Client> clients = list;

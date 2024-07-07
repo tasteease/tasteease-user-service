@@ -25,7 +25,7 @@ namespace Fiap.TasteEase.Application.Tests
             var identityProviderMock = new Mock<IAmazonCognitoIdentityProvider>();
             var awsSettingsMock = new Mock<IOptions<AwsSettings>>();
             var clientListResult = Result.Ok(new List<Client>().AsEnumerable());
-            var clientResult = Result.Ok(new Client(new ClientProps("", "", DateTime.Now, DateTime.Now)));
+            var clientResult = Result.Ok(new Client(new ClientProps("", "", null, null, DateTime.Now, DateTime.Now)));
 
             awsSettingsMock.Setup(x => x.Value).Returns(new AwsSettings());
             clientRepositoryMock.Setup(
