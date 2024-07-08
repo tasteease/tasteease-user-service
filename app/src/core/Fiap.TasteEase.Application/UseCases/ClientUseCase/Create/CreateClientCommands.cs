@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 using MediatR;
 
-namespace Fiap.TasteEase.Application.UseCases.ClientUseCase;
+namespace Fiap.TasteEase.Application.UseCases.ClientUseCase.Create;
 
 public class Create : IRequest<Result<Guid>>
 {

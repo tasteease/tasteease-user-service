@@ -3,6 +3,7 @@ using Fiap.TasteEase.Domain.Aggregates.ClientAggregate;
 using Fiap.TasteEase.Domain.Aggregates.ClientAggregate.ValueObjects;
 using Fiap.TasteEase.Domain.Models;
 using Fiap.TasteEase.Infra.Context;
+using FluentResults;
 
 namespace Fiap.TasteEase.Infra.Repository;
 

@@ -25,6 +25,9 @@ public class ClientModel : EntityModel
     [Column("cellphone_number")]
     public long? CellPhoneNumber { get; set; }
 
+    [Column("is_deleted")]
+    public bool IsDeleted { get; set; }
+
     [Column("created_at", TypeName = "timestamp without time zone")]
     public DateTime CreatedAt { get; set; }
 

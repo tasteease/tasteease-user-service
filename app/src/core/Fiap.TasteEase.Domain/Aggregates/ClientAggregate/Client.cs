@@ -15,6 +15,7 @@ namespace Fiap.TasteEase.Domain.Aggregates.ClientAggregate
         public string TaxpayerNumber => Props.TaxpayerNumber;
         public string FullAddress => Props.FullAddress;
         public long? CellPhoneNumber => Props.CellPhoneNumber;
+        public bool IsDeleted => Props.IsDeleted;
         public DateTime CreatedAt => Props.CreatedAt;
         public DateTime UpdatedAt => Props.UpdatedAt;
 
@@ -48,12 +49,22 @@ namespace Fiap.TasteEase.Domain.Aggregates.ClientAggregate
                     model.FullAddress,
                     model.CellPhoneNumber,
                     model.CreatedAt,
-                    model.UpdatedAt
+                    model.UpdatedAt,
+                    model.IsDeleted
                 ),
                 new ClientId(model.Id)
             );
 
             return Result.Ok(order);
+        }
+
+        public Result Delete()
+        {
+            if (IsDeleted) return Result.Fail("Cliente já foi deletado");
+
+            Props = Props with { IsDeleted = true, UpdatedAt = DateTime.Now };
+
+            return Result.Ok();
         }
     }
 }
@@ -64,7 +75,8 @@ public record ClientProps(
     string FullAddress,
     long? CellPhoneNumber,
     DateTime CreatedAt,
-    DateTime UpdatedAt
+    DateTime UpdatedAt,
+    bool IsDeleted = false
 );
 
 public record CreateClientProps(

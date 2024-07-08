@@ -1,6 +1,6 @@
 using Amazon.CognitoIdentityProvider;
 using Fiap.TasteEase.Application.Ports;
-using Fiap.TasteEase.Application.UseCases.ClientUseCase;
+using Fiap.TasteEase.Application.UseCases.ClientUseCase.Create;
 using Fiap.TasteEase.Domain.Aggregates.ClientAggregate;
 using Fiap.TasteEase.Domain.DTOs;
 using Fiap.TasteEase.Domain.Models;
@@ -34,7 +34,7 @@ namespace Fiap.TasteEase.Application.Tests
 
             clientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).ReturnsAsync(clientResult);
 
-            var clientHandler = new ClientHandler(clientRepositoryMock.Object, identityProviderMock.Object, awsSettingsMock.Object);
+            var clientHandler = new CreateClientHandler(clientRepositoryMock.Object, identityProviderMock.Object, awsSettingsMock.Object);
 
             // Act
             var result = await clientHandler.Handle(request, CancellationToken.None);
