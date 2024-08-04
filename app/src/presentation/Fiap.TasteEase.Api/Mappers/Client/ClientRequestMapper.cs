@@ -1,5 +1,5 @@
 ﻿using Fiap.TasteEase.Api.ViewModels.Client;
-using Fiap.TasteEase.Application.UseCases.ClientUseCase;
+using Fiap.TasteEase.Application.UseCases.ClientUseCase.Create;
 using Mapster;
 
 namespace Fiap.TasteEase.Api.Mappers.Client;

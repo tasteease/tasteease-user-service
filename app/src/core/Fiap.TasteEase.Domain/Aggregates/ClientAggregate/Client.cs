@@ -13,6 +13,9 @@ namespace Fiap.TasteEase.Domain.Aggregates.ClientAggregate
 
         public string Name => Props.Name;
         public string TaxpayerNumber => Props.TaxpayerNumber;
+        public string FullAddress => Props.FullAddress;
+        public long? CellPhoneNumber => Props.CellPhoneNumber;
+        public bool IsDeleted => Props.IsDeleted;
         public DateTime CreatedAt => Props.CreatedAt;
         public DateTime UpdatedAt => Props.UpdatedAt;
 
@@ -22,6 +25,8 @@ namespace Fiap.TasteEase.Domain.Aggregates.ClientAggregate
             var clientProps = new ClientProps(
                 props.Name,
                 props.TaxpayerNumber,
+                props.FullAddress,
+                props.CellPhoneNumber,
                 date,
                 date
             );
@@ -41,13 +46,33 @@ namespace Fiap.TasteEase.Domain.Aggregates.ClientAggregate
                 new ClientProps(
                     model.Name,
                     model.TaxpayerNumber,
+                    model.FullAddress,
+                    model.CellPhoneNumber,
                     model.CreatedAt,
-                    model.UpdatedAt
+                    model.UpdatedAt,
+                    model.IsDeleted
                 ),
                 new ClientId(model.Id)
             );
 
             return Result.Ok(order);
+        }
+
+        public Result Delete()
+        {
+            if (IsDeleted) return Result.Fail("Cliente já foi deletado");
+
+            Props = Props with 
+            { 
+                Name = "deleted",
+                TaxpayerNumber = "deleted",
+                FullAddress = "deleted",
+                CellPhoneNumber = null,
+                IsDeleted = true, 
+                UpdatedAt = DateTime.Now 
+            };
+
+            return Result.Ok();
         }
     }
 }
@@ -55,11 +80,16 @@ namespace Fiap.TasteEase.Domain.Aggregates.ClientAggregate
 public record ClientProps(
     string Name,
     string TaxpayerNumber,
+    string FullAddress,
+    long? CellPhoneNumber,
     DateTime CreatedAt,
-    DateTime UpdatedAt
+    DateTime UpdatedAt,
+    bool IsDeleted = false
 );
 
 public record CreateClientProps(
     string Name,
-    string TaxpayerNumber
+    string TaxpayerNumber,
+    string FullAddress,
+    long? CellPhoneNumber
 );

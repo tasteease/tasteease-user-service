@@ -8,15 +8,15 @@ using FluentResults;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace Fiap.TasteEase.Application.UseCases.ClientUseCase;
+namespace Fiap.TasteEase.Application.UseCases.ClientUseCase.Create;
 
-public class ClientHandler : IRequestHandler<Create, Result<Guid>>
+public class CreateClientHandler : IRequestHandler<Create, Result<Guid>>
 {
     private readonly IClientRepository _clientRepository;
     private readonly IAmazonCognitoIdentityProvider _identityProvider;
     private readonly AwsSettings _awsSettings;
 
-    public ClientHandler(IClientRepository clientRepository, IAmazonCognitoIdentityProvider identityProvider, IOptions<AwsSettings> awsSettings)
+    public CreateClientHandler(IClientRepository clientRepository, IAmazonCognitoIdentityProvider identityProvider, IOptions<AwsSettings> awsSettings)
     {
         _clientRepository = clientRepository;
         _identityProvider = identityProvider;
@@ -27,8 +27,8 @@ public class ClientHandler : IRequestHandler<Create, Result<Guid>>
     {
         var existClient = await _clientRepository.Get(w => w.TaxpayerNumber == request.TaxpayerNumber);
         if (existClient.IsFailed || existClient.ValueOrDefault.Any()) return Result.Fail("Cliente já existe");
-        
-        var (_, isFailed, client) = Client.Create(new CreateClientProps(request.Name, request.TaxpayerNumber));
+
+        var (_, isFailed, client) = Client.Create(new CreateClientProps(request.Name, request.TaxpayerNumber, request.FullAddress, request.CellPhoneNumber));
         if (isFailed) return Result.Fail("Erro registrando cliente");
 
         _clientRepository.Add(client);
@@ -38,7 +38,7 @@ public class ClientHandler : IRequestHandler<Create, Result<Guid>>
 
         return Result.Ok(client.Id.Value);
     }
-    
+
     private async Task<Result> SignUpAsync(string username, string name)
     {
         try
@@ -48,7 +48,7 @@ public class ClientHandler : IRequestHandler<Create, Result<Guid>>
 
             return Result.Ok();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return Result.Fail(ex.Message);
         }

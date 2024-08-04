@@ -12,7 +12,7 @@ namespace Fiap.TasteEase.Domain.Tests
         public void Constructor_Should_Set_Properties_Correctly()
         {
             // Arrange
-            var props = new ClientProps("Test Client", "123456789", DateTime.UtcNow, DateTime.UtcNow);
+            var props = new ClientProps("Test Client", "123456789", null, null, DateTime.UtcNow, DateTime.UtcNow);
 
             // Act
             var client = new Client(props);
@@ -30,7 +30,7 @@ namespace Fiap.TasteEase.Domain.Tests
         public void Create_Method_Should_Create_Client()
         {
             // Arrange
-            var props = new CreateClientProps("Test Client", "123456789");
+            var props = new CreateClientProps("Test Client", "123456789", null, null);
 
             // Act
             var result = Client.Create(props);
@@ -51,7 +51,7 @@ namespace Fiap.TasteEase.Domain.Tests
         public void Rehydrate_Method_Should_Rehydrate_Client_From_Props_And_Id()
         {
             // Arrange
-            var props = new ClientProps("Test Client", "123456789", DateTime.UtcNow, DateTime.UtcNow);
+            var props = new ClientProps("Test Client", "123456789", null, null, DateTime.UtcNow, DateTime.UtcNow);
             var id = new ClientId(Guid.NewGuid());
 
             // Act

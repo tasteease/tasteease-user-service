@@ -42,7 +42,9 @@ namespace Fiap.TasteEase.Presentation.Tests.Steps
             var userData = new 
             {
                 Name = "Maria Santos",
-                TaxpayerNumber = "70621098000"
+                TaxpayerNumber = "70621098000",
+                FullAddress = "Rua das Flores, 123",
+                CellPhoneNumber = 11999999999
             };
 
             var jsonContent = JsonSerializer.Serialize(userData);
