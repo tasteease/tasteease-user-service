@@ -62,7 +62,15 @@ namespace Fiap.TasteEase.Domain.Aggregates.ClientAggregate
         {
             if (IsDeleted) return Result.Fail("Cliente já foi deletado");
 
-            Props = Props with { IsDeleted = true, UpdatedAt = DateTime.Now };
+            Props = Props with 
+            { 
+                Name = "deleted",
+                TaxpayerNumber = "deleted",
+                FullAddress = "deleted",
+                CellPhoneNumber = null,
+                IsDeleted = true, 
+                UpdatedAt = DateTime.Now 
+            };
 
             return Result.Ok();
         }
